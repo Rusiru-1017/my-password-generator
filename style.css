@@ -1,25 +1,38 @@
-body, html { margin: 0; padding: 0; height: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+body { 
+    height: 100vh; display: flex; justify-content: center; align-items: center; 
+    background: #000; overflow: hidden; 
+}
 
 /* Background Animation */
-.space-background {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: url('Screenshot 2026-06-14 001846.jpg') no-repeat center center;
+.galaxy-bg {
+    position: absolute; width: 100%; height: 100%;
+    background: url('Screenshot 2026-06-14 001846_3.jpg') no-repeat center center;
     background-size: cover;
-    animation: zoomEffect 15s ease-in-out infinite alternate;
-    z-index: -1;
+    animation: zoom 20s infinite alternate; z-index: -1;
 }
 
-@keyframes zoomEffect {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
+@keyframes zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+/* Advanced Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px; border-radius: 25px; text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    width: 350px; color: #fff;
 }
 
-/* UI Box */
-.box { 
-    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px);
-    padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2);
-    width: 320px; text-align: center; color: white;
+input { 
+    width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; 
+    border: none; background: rgba(255,255,255,0.2); color: white;
 }
-input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: none; }
-button { width: 100%; padding: 12px; background: #e1b12c; border: none; border-radius: 8px; cursor: pointer; }
-#passDisplay { margin-top: 15px; color: #00d8d6; }
+button { 
+    width: 100%; padding: 12px; background: #f1c40f; border: none; 
+    border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s;
+}
+button:hover { background: #d35400; }
+#passDisplay { margin-top: 20px; font-size: 1.1em; color: #00ffcc; text-shadow: 0 0 10px #00ffcc; }
