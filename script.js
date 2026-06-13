@@ -1,11 +1,17 @@
-// Space Animation
+// ============================================
+// SUBTLE STAR ANIMATION (Small falling stars)
+// ============================================
 const canvas = document.getElementById('spaceCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-const colors = ['#00f3ff', '#bc13fe', '#ff0055', '#ffffff'];
+const starColors = ['#00f3ff', '#bc13fe', '#ffffff', '#ffd700'];
 
 class Star {
   constructor() {
@@ -15,18 +21,18 @@ class Star {
 
   reset() {
     this.x = Math.random() * canvas.width;
-    this.y = -10;
-    this.size = Math.random() * 3 + 0.5;
-    this.speed = Math.random() * 1 + 0.3;
-    this.opacity = Math.random() * 0.8 + 0.2;
-    this.twinkleSpeed = Math.random() * 0.03 + 0.01;
-    this.color = colors[Math.floor(Math.random() * colors.length)];
+    this.y = -5;
+    this.size = Math.random() * 1.5 + 0.3; // Very small stars
+    this.speed = Math.random() * 0.8 + 0.2; // Slow falling
+    this.opacity = Math.random() * 0.6 + 0.2;
+    this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+    this.color = starColors[Math.floor(Math.random() * starColors.length)];
   }
 
   draw() {
     ctx.save();
     ctx.globalAlpha = this.opacity;
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur = 8;
     ctx.shadowColor = this.color;
     ctx.fillStyle = this.color;
     ctx.beginPath();
@@ -39,7 +45,7 @@ class Star {
     this.y += this.speed;
     this.opacity += this.twinkleSpeed;
 
-    if (this.opacity > 1 || this.opacity < 0.1) {
+    if (this.opacity > 0.8 || this.opacity < 0.1) {
       this.twinkleSpeed *= -1;
     }
 
@@ -49,27 +55,28 @@ class Star {
   }
 }
 
+// Create 200 small subtle stars
 const stars = Array(200).fill().map(() => new Star());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
   stars.forEach(star => {
     star.update();
     star.draw();
   });
+  
   requestAnimationFrame(animate);
 }
+
 animate();
 
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
-
-// Password Generator
-function generateSecurityKey(name, birthYear) {
+// ============================================
+// PASSWORD GENERATOR
+// ============================================
+function generateSecurityKey(name, birthDate) {
   let hash = 0;
-  const str = name + birthYear;
+  const str = name.toLowerCase() + birthDate;
 
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
@@ -77,7 +84,7 @@ function generateSecurityKey(name, birthYear) {
     hash = hash & hash;
   }
 
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=';
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*';
   let key = '';
   let temp = Math.abs(hash);
 
@@ -85,12 +92,15 @@ function generateSecurityKey(name, birthYear) {
     key += chars[temp % chars.length];
     temp = Math.floor(temp / chars.length);
   }
-  return key;
+  
+  // Format: XXXX-XXXX-XXXX-XXXX
+  return key.match(/.{1,4}/g).join('-');
 }
 
+// Form handling
 const keyForm = document.getElementById('keyForm');
 const nameInput = document.getElementById('name');
-const birthYearInput = document.getElementById('birthYear');
+const birthDateInput = document.getElementById('birthDate');
 const securityKeyDisplay = document.getElementById('securityKey');
 const resultSection = document.getElementById('resultSection');
 const copyBtn = document.getElementById('copyBtn');
@@ -98,14 +108,14 @@ const copyBtn = document.getElementById('copyBtn');
 keyForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = nameInput.value.trim();
-  const birthYear = birthYearInput.value;
+  const birthDate = birthDateInput.value;
 
-  if (!name || !birthYear) {
+  if (!name || !birthDate) {
     alert('Please fill in all fields');
     return;
   }
 
-  const key = generateSecurityKey(name, birthYear);
+  const key = generateSecurityKey(name, birthDate);
   securityKeyDisplay.textContent = key;
   resultSection.style.display = 'block';
 });
