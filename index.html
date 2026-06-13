@@ -4,12 +4,263 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Galactic Security Key Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      background: #000;
+      min-height: 100vh;
+    }
+
+    /* Space Background Canvas */
+    #spaceCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Nebula Effects */
+    .nebula {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .nebula-1 {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(188, 19, 254, 0.6) 0%, transparent 70%);
+      top: -300px;
+      right: -200px;
+      animation: nebulaFloat 15s ease-in-out infinite;
+    }
+
+    .nebula-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 243, 255, 0.5) 0%, transparent 70%);
+      bottom: -200px;
+      left: -100px;
+      animation: nebulaFloat 18s ease-in-out infinite reverse;
+    }
+
+    .nebula-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 0, 85, 0.4) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: nebulaFloat 20s ease-in-out infinite;
+    }
+
+    @keyframes nebulaFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -50px) scale(1.2); }
+      66% { transform: translate(-30px, 30px) scale(0.9); }
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Glass Card */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 50px 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      animation: slideUp 1s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #ff0055 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      color: #00f3ff;
+      font-size: 12px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #bc13fe;
+      box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #bc13fe 0%, #00f3ff 100%);
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(188, 19, 254, 0.6);
+    }
+
+    .result-section {
+      margin-top: 30px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(0, 243, 255, 0.5);
+      border-radius: 16px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .result-label {
+      color: #00f3ff;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .security-key {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid rgba(0, 243, 255, 0.6);
+      padding: 18px;
+      border-radius: 10px;
+      color: #00f3ff;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 2px;
+      word-break: break-all;
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+    }
+
+    .copy-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: rgba(188, 19, 254, 0.2);
+      border: 2px solid rgba(188, 19, 254, 0.5);
+      color: #bc13fe;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background: rgba(188, 19, 254, 0.4);
+      box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 40px 25px;
+      }
+      .title {
+        font-size: 26px;
+      }
+    }
+  </style>
 </head>
 <body>
 
+<!-- Space Background -->
 <canvas id="spaceCanvas"></canvas>
 
+<!-- Nebula Effects -->
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div>
+
+<!-- Main Content -->
 <div class="container">
   <div class="card">
     <h1 class="title">🚀 Galactic Security Key</h1>
@@ -37,6 +288,139 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+// ============================================
+// SPACE ANIMATION - Stars & Nebula
+// ============================================
+const canvas = document.getElementById('spaceCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set canvas size
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const starColors = ['#00f3ff', '#bc13fe', '#ff0055', '#ffffff', '#ffd700'];
+
+class Star {
+  constructor() {
+    this.reset();
+    this.y = Math.random() * canvas.height;
+  }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = -10;
+    this.size = Math.random() * 3 + 0.5;
+    this.speed = Math.random() * 1.5 + 0.5;
+    this.opacity = Math.random() * 0.8 + 0.2;
+    this.twinkleSpeed = Math.random() * 0.03 + 0.01;
+    this.color = starColors[Math.floor(Math.random() * starColors.length)];
+  }
+
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = this.color;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  update() {
+    this.y += this.speed;
+    this.opacity += this.twinkleSpeed;
+
+    if (this.opacity > 1 || this.opacity < 0.1) {
+      this.twinkleSpeed *= -1;
+    }
+
+    if (this.y > canvas.height) {
+      this.reset();
+    }
+  }
+}
+
+// Create 300 stars
+const stars = Array(300).fill().map(() => new Star());
+
+// Animation loop
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  stars.forEach(star => {
+    star.update();
+    star.draw();
+  });
+  
+  requestAnimationFrame(animate);
+}
+
+// Start animation
+animate();
+
+// ============================================
+// PASSWORD GENERATOR
+// ============================================
+function generateSecurityKey(name, birthYear) {
+  let hash = 0;
+  const str = name + birthYear;
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=';
+  let key = '';
+  let temp = Math.abs(hash);
+
+  for (let i = 0; i < 20; i++) {
+    key += chars[temp % chars.length];
+    temp = Math.floor(temp / chars.length);
+  }
+  return key;
+}
+
+// Form handling
+const keyForm = document.getElementById('keyForm');
+const nameInput = document.getElementById('name');
+const birthYearInput = document.getElementById('birthYear');
+const securityKeyDisplay = document.getElementById('securityKey');
+const resultSection = document.getElementById('resultSection');
+const copyBtn = document.getElementById('copyBtn');
+
+keyForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = nameInput.value.trim();
+  const birthYear = birthYearInput.value;
+
+  if (!name || !birthYear) {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  const key = generateSecurityKey(name, birthYear);
+  securityKeyDisplay.textContent = key;
+  resultSection.style.display = 'block';
+});
+
+copyBtn.addEventListener('click', () => {
+  const key = securityKeyDisplay.textContent;
+  navigator.clipboard.writeText(key).then(() => {
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = 'Copied! ✓';
+    setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
+  });
+});
+</script>
+
 </body>
 </html>
