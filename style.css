@@ -6,11 +6,12 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden;
-  background: #000;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, #0a0e27, #1a1f4b);
+  min-height: 100vh;
 }
 
-/* Animated Space Background */
+/* Space Background Canvas */
 #spaceCanvas {
   position: fixed;
   top: 0;
@@ -20,49 +21,40 @@ body {
   z-index: 0;
 }
 
-/* Nebula Effects */
+/* Subtle Nebula */
 .nebula {
   position: fixed;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.4;
+  filter: blur(80px);
+  opacity: 0.3;
   z-index: 1;
-  animation: float 20s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .nebula-1 {
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(188, 19, 254, 0.5) 0%, transparent 70%);
-  top: -300px;
-  right: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(188, 19, 254, 0.4) 0%, transparent 70%);
+  top: -200px;
+  right: -150px;
+  animation: float 20s ease-in-out infinite;
 }
 
 .nebula-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
-  bottom: -200px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.3) 0%, transparent 70%);
+  bottom: -150px;
   left: -100px;
-  animation-delay: -5s;
-}
-
-.nebula-3 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(255, 0, 85, 0.3) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  animation-delay: -10s;
+  animation: float 25s ease-in-out infinite reverse;
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -30px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -30px); }
 }
 
-/* Centered Container */
+/* Main Container */
 .container {
   position: relative;
   z-index: 10;
@@ -73,168 +65,159 @@ body {
   padding: 20px;
 }
 
-/* Glass Card */
+/* Light Glass Card */
 .card {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  padding: 50px 40px;
-  max-width: 500px;
+  border-radius: 20px;
+  padding: 40px 35px;
+  max-width: 450px;
   width: 100%;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-  animation: slideUp 1s ease-out;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1s ease;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .title {
   text-align: center;
-  font-size: 32px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #ff0055 100%);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #00f3ff, #bc13fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .subtitle {
   text-align: center;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  margin-bottom: 35px;
 }
 
 .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
   color: #00f3ff;
-  font-size: 12px;
-  margin-bottom: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 11px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 input {
   width: 100%;
-  padding: 16px 20px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.5);
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
 input:focus {
   outline: none;
   border-color: #bc13fe;
-  box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
-  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .button {
   width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, #bc13fe 0%, #00f3ff 100%);
+  padding: 14px;
+  background: linear-gradient(135deg, #bc13fe, #00f3ff);
   border: none;
-  border-radius: 12px;
-  color: #000;
-  font-weight: 800;
-  font-size: 16px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 20px;
+  margin-top: 25px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(188, 19, 254, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(188, 19, 254, 0.4);
 }
 
 .result-section {
-  margin-top: 30px;
-  padding: 25px;
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid rgba(0, 243, 255, 0.5);
-  border-radius: 16px;
+  margin-top: 25px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 243, 255, 0.4);
+  border-radius: 12px;
   display: none;
-  animation: fadeIn 0.5s ease;
+  animation: slideIn 0.5s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .result-label {
   color: #00f3ff;
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
   font-weight: 700;
   text-align: center;
 }
 
 .security-key {
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid rgba(0, 243, 255, 0.6);
-  padding: 18px;
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 243, 255, 0.5);
+  padding: 15px;
+  border-radius: 8px;
   color: #00f3ff;
   font-family: 'Courier New', monospace;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   font-weight: bold;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   word-break: break-all;
-  text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
 }
 
 .copy-btn {
   width: 100%;
-  margin-top: 15px;
-  padding: 12px;
+  margin-top: 12px;
+  padding: 10px;
   background: rgba(188, 19, 254, 0.2);
-  border: 2px solid rgba(188, 19, 254, 0.5);
+  border: 1px solid rgba(188, 19, 254, 0.4);
   color: #bc13fe;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
 
 .copy-btn:hover {
-  background: rgba(188, 19, 254, 0.4);
-  box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+  background: rgba(188, 19, 254, 0.3);
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
 }
 
-/* Mobile Responsive */
 @media (max-width: 600px) {
   .card {
-    padding: 40px 25px;
+    padding: 35px 25px;
   }
   .title {
-    font-size: 26px;
+    font-size: 24px;
   }
 }
