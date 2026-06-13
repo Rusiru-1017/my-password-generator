@@ -1,35 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Password Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
-    .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
-    input { padding: 10px; font-size: 18px; width: 250px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
-    button { padding: 10px 20px; font-size: 16px; background: #2ea44f; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
-    button:hover { background: #2c974b; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Password Generator</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        .box { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+            text-align: center; 
+            width: 320px; 
+        }
+        h2 { color: #333; margin-bottom: 20px; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            font-size: 20px; 
+            border: 2px solid #ddd; 
+            border-radius: 10px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            font-size: 16px; 
+            background: #764ba2; 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        button:hover { background: #5a377d; }
+    </style>
 </head>
 <body>
 
-  <div class="box">
-    <h2>Random Password Generator</h2>
-    <input type="text" id="passDisplay" readonly placeholder="Click the button below">
-    <br>
-    <button onclick="generatePassword()">Generate Password</button>
-  </div>
+    <div class="box">
+        <h2>Password Generator</h2>
+        <input type="text" id="passDisplay" readonly placeholder="Click button below">
+        <button onclick="generatePassword()">Generate Password</button>
+    </div>
 
-  <script>
-    function generatePassword() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-      let password = "";
-      for(let i = 0; i < 12; i++) {
-        let randomIndex = Math.floor(Math.random() * chars.length);
-        password += chars[randomIndex];
-      }
-      document.getElementById("passDisplay").value = password;
-    }
-  </script>
+    <script>
+        function generatePassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            let password = "";
+            for(let i = 0; i < 12; i++) {
+                let randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars[randomIndex];
+            }
+            document.getElementById("passDisplay").value = password;
+        }
+    </script>
 
 </body>
 </html>
