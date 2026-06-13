@@ -6,7 +6,7 @@ body { margin: 0; background: #050505; color: white; font-family: sans-serif; he
 /* Spaceman floating effect */
 .spaceman { 
     position: absolute; left: 10%; width: 300px; height: 400px; 
-    background-image: url('wp14679603.jpg'); background-size: contain; background-repeat: no-repeat;
+    background-image: url('Screenshot 2026-06-14 001846.png'); background-size: contain; background-repeat: no-repeat;
     animation: float 4s ease-in-out infinite; 
 }
 
