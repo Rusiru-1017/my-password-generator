@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galactic Security Key</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="space-background"></div>
-    <div class="box">
-        <h2>Galactic Security Key</h2>
-        <input type="text" id="name" placeholder="Enter name">
-        <input type="number" id="bday" placeholder="Enter year">
+    <div class="galaxy-bg"></div>
+    <div class="astronaut-float"></div>
+    
+    <div class="glass-card">
+        <h1>Galactic Security</h1>
+        <div class="input-group">
+            <input type="text" id="name" placeholder="Enter name">
+            <input type="number" id="bday" placeholder="Enter birth year">
+        </div>
         <button onclick="generateSecurePassword()">Generate Secure Key</button>
         <div id="passDisplay"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
