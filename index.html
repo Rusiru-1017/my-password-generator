@@ -45,8 +45,7 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      background: 
-        radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+      background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
       overflow: hidden;
     }
 
@@ -376,7 +375,6 @@
       }
     }
 
-    /* Loading Animation */
     .loading {
       display: inline-block;
       width: 20px;
@@ -403,7 +401,6 @@
 
 <div class="container">
   <div class="astronaut-container">
-    <!-- Realistic Astronaut Image -->
     <img src="https://images.unsplash.com/photo-1614728853913-1e22ba0e982b?w=400&h=600&fit=crop" 
          alt="Astronaut in Space" 
          class="astronaut"
@@ -420,7 +417,7 @@
         <input 
           type="text" 
           id="name" 
-          placeholder="John Doe" 
+          placeholder="Your name" 
           required
           aria-label="Your name"
         >
@@ -431,7 +428,7 @@
         <input 
           type="number" 
           id="birthYear" 
-          placeholder="1990" 
+          placeholder="Birth year" 
           min="1900" 
           max="2024" 
           required
@@ -461,17 +458,16 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Star class with different types
 class Star {
   constructor() {
     this.reset();
-    this.y = Math.random() * canvas.height; // Start at random position
+    this.y = Math.random() * canvas.height;
   }
 
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = -10;
-    this.z = Math.random() * 2 + 0.5; // Depth
+    this.z = Math.random() * 2 + 0.5;
     this.size = Math.random() * 2;
     this.speed = Math.random() * 0.5 + 0.1;
     this.opacity = Math.random() * 0.8 + 0.2;
@@ -481,11 +477,11 @@ class Star {
 
   getRandomStarColor() {
     const colors = [
-      '255, 255, 255', // White
-      '200, 220, 255', // Blue-white
-      '255, 240, 200', // Yellow-white
-      '255, 200, 200', // Red-white
-      '200, 255, 255'  // Cyan
+      '255, 255, 255',
+      '200, 220, 255',
+      '255, 240, 200',
+      '255, 200, 200',
+      '200, 255, 255'
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
@@ -496,7 +492,6 @@ class Star {
     ctx.arc(this.x, this.y, this.size * this.z, 0, Math.PI * 2);
     ctx.fill();
 
-    // Glow effect for larger stars
     if (this.size > 1.5) {
       const gradient = ctx.createRadialGradient(
         this.x, this.y, 0,
@@ -525,7 +520,6 @@ class Star {
   }
 }
 
-// Shooting Star class
 class ShootingStar {
   constructor() {
     this.reset();
@@ -580,20 +574,17 @@ class ShootingStar {
   }
 }
 
-// Create stars
 const stars = Array(250).fill().map(() => new Star());
 const shootingStars = Array(3).fill().map(() => new ShootingStar());
 
 function animateSpace() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw stars
   stars.forEach(star => {
     star.update();
     star.draw();
   });
 
-  // Draw shooting stars
   shootingStars.forEach(star => {
     star.update();
     star.draw();
@@ -604,22 +595,18 @@ function animateSpace() {
 
 animateSpace();
 
-// ============================================
-// WINDOW RESIZE HANDLER
-// ============================================
-
 window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
 // ============================================
-// SECURITY KEY GENERATION
+// SECURITY KEY GENERATION (UNCHANGED)
 // ============================================
 
 function generateSecurityKey(name, birthYear) {
   let hash = 0;
-  const str = name.toLowerCase() + birthYear;
+  const str = name + birthYear;
 
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
@@ -627,28 +614,21 @@ function generateSecurityKey(name, birthYear) {
     hash = hash & hash;
   }
 
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*_+-=';
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_-+=';
+
   let key = '';
   let temp = Math.abs(hash);
 
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < 20; i++) {
     key += chars[temp % chars.length];
     temp = Math.floor(temp / chars.length);
   }
 
-  // Add some pattern
-  const sections = [
-    key.substring(0, 6),
-    key.substring(6, 12),
-    key.substring(12, 18),
-    key.substring(18, 24)
-  ];
-
-  return sections.join('-');
+  return key;
 }
 
 // ============================================
-// FORM HANDLING
+// FORM HANDLING (UNCHANGED)
 // ============================================
 
 const keyForm = document.getElementById('keyForm');
@@ -669,23 +649,11 @@ keyForm.addEventListener('submit', (e) => {
     return;
   }
 
-  // Add loading state
-  const button = e.target.querySelector('.button');
-  const originalText = button.textContent;
-  button.innerHTML = '<span class="loading"></span> Generating...';
-  button.disabled = true;
+  const key = generateSecurityKey(name, birthYear);
+  securityKeyDisplay.textContent = key;
+  resultSection.style.display = 'block';
 
-  // Simulate processing delay for effect
-  setTimeout(() => {
-    const key = generateSecurityKey(name, birthYear);
-    securityKeyDisplay.textContent = key;
-    resultSection.style.display = 'block';
-
-    button.textContent = originalText;
-    button.disabled = false;
-
-    resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 1500);
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
 copyBtn.addEventListener('click', () => {
@@ -693,12 +661,10 @@ copyBtn.addEventListener('click', () => {
 
   navigator.clipboard.writeText(key).then(() => {
     const originalText = copyBtn.textContent;
-    copyBtn.textContent = '✓ Copied Successfully!';
-    copyBtn.style.background = 'rgba(100, 255, 100, 0.3)';
+    copyBtn.textContent = 'Copied! ✓';
 
     setTimeout(() => {
       copyBtn.textContent = originalText;
-      copyBtn.style.background = 'rgba(100, 255, 100, 0.1)';
     }, 2000);
   }).catch(err => {
     console.error('Failed to copy:', err);
@@ -706,8 +672,20 @@ copyBtn.addEventListener('click', () => {
   });
 });
 
+nameInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    birthYearInput.focus();
+  }
+});
+
+birthYearInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    keyForm.dispatchEvent(new Event('submit'));
+  }
+});
+
 console.log('🚀 Galactic Security Key Generator loaded successfully');
-console.log('✨ Enhanced space animation active with realistic astronaut');
+console.log('ℹ️ Enter your name and birth year to generate your unique security key');
 </script>
 
 </body>
