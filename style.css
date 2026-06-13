@@ -4,15 +4,14 @@
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #000000;
+body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  background: #000;
 }
 
-#galaxyCanvas {
+/* Animated Space Background */
+#spaceCanvas {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,149 +20,92 @@ html, body {
   z-index: 0;
 }
 
+/* Nebula Effects */
 .nebula {
   position: fixed;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(100px);
   opacity: 0.4;
   z-index: 1;
-  animation: nebulaPulse 8s ease-in-out infinite;
+  animation: float 20s ease-in-out infinite;
 }
 
 .nebula-1 {
-  width: 600px;
-  height: 600px;
+  width: 800px;
+  height: 800px;
   background: radial-gradient(circle, rgba(188, 19, 254, 0.5) 0%, transparent 70%);
-  top: -200px;
-  right: -100px;
+  top: -300px;
+  right: -200px;
 }
 
 .nebula-2 {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
-  bottom: -150px;
+  bottom: -200px;
   left: -100px;
-  animation-delay: -3s;
+  animation-delay: -5s;
 }
 
 .nebula-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 0, 85, 0.3) 0%, transparent 70%);
-  top: 40%;
-  left: 30%;
-  animation-delay: -6s;
-}
-
-@keyframes nebulaPulse {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.2); opacity: 0.6; }
-}
-
-.app-container {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  z-index: 10;
-}
-
-.astronaut-side {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.astronaut-wrapper {
-  position: relative;
-  width: 600px;
+  width: 500px;
   height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: floatAstronaut 10s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255, 0, 85, 0.3) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  animation-delay: -10s;
 }
 
-/* Image එකේ black background එක remove කරන්න */
-.astronaut-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  /* Black background එක blend කරන්න */
-  mix-blend-mode: screen;
-  filter: 
-    brightness(1.3) 
-    contrast(1.2)
-    drop-shadow(0 0 30px rgba(188, 19, 254, 0.8));
-  z-index: 10;
-}
-
-.glowing-orb {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 0%, #00f3ff 40%, #bc13fe 70%, transparent 100%);
-  box-shadow: 0 0 40px #00f3ff, 0 0 80px #bc13fe, 0 0 120px rgba(0, 243, 255, 0.8), inset 0 0 20px #ffffff;
-  animation: orbFloat 4s ease-in-out infinite, orbPulse 2s ease-in-out infinite;
-  z-index: 15;
-  right: 150px;
-  top: 40%;
-}
-
-@keyframes orbFloat {
+@keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(-10px, -20px) scale(1.05); }
-  50% { transform: translate(5px, -30px) scale(1.1); }
-  75% { transform: translate(-5px, -15px) scale(1.05); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
 }
 
-@keyframes orbPulse {
-  0%, 100% { box-shadow: 0 0 40px #00f3ff, 0 0 80px #bc13fe, 0 0 120px rgba(0, 243, 255, 0.8); }
-  50% { box-shadow: 0 0 60px #00f3ff, 0 0 100px #bc13fe, 0 0 150px rgba(188, 19, 254, 1); }
-}
-
-@keyframes floatAstronaut {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-20px) rotate(1deg); }
-}
-
-.form-side {
-  flex: 1;
+/* Centered Container */
+.container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 20px;
 }
 
-.content-card {
-  background: rgba(10, 10, 20, 0.7);
-  backdrop-filter: blur(30px);
-  border: 2px solid rgba(188, 19, 254, 0.5);
+/* Glass Card */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 30px;
   padding: 50px 40px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 0 60px rgba(188, 19, 254, 0.3);
-  animation: slideIn 1s ease-out;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 1s ease-out;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(50px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title {
   text-align: center;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 800;
   margin-bottom: 10px;
   background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #ff0055 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: 2px;
 }
 
@@ -193,7 +135,7 @@ input {
   padding: 16px 20px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   color: #fff;
   font-size: 15px;
   transition: all 0.3s ease;
@@ -202,8 +144,8 @@ input {
 input:focus {
   outline: none;
   border-color: #bc13fe;
-  box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
-  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .button {
@@ -224,16 +166,22 @@ input:focus {
 
 .button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(188, 19, 254, 0.8);
+  box-shadow: 0 15px 40px rgba(188, 19, 254, 0.6);
 }
 
 .result-section {
   margin-top: 30px;
   padding: 25px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid rgba(0, 243, 255, 0.6);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 243, 255, 0.5);
   border-radius: 16px;
   display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .result-label {
@@ -247,8 +195,8 @@ input:focus {
 }
 
 .security-key {
-  background: rgba(0, 0, 0, 0.9);
-  border: 2px solid rgba(0, 243, 255, 0.7);
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 243, 255, 0.6);
   padding: 18px;
   border-radius: 10px;
   color: #00f3ff;
@@ -258,6 +206,7 @@ input:focus {
   font-weight: bold;
   letter-spacing: 2px;
   word-break: break-all;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
 }
 
 .copy-btn {
@@ -265,7 +214,7 @@ input:focus {
   margin-top: 15px;
   padding: 12px;
   background: rgba(188, 19, 254, 0.2);
-  border: 2px solid rgba(188, 19, 254, 0.6);
+  border: 2px solid rgba(188, 19, 254, 0.5);
   color: #bc13fe;
   border-radius: 8px;
   cursor: pointer;
@@ -277,27 +226,15 @@ input:focus {
 
 .copy-btn:hover {
   background: rgba(188, 19, 254, 0.4);
-  box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
+  box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
 }
 
-@media (max-width: 900px) {
-  .app-container {
-    flex-direction: column;
-    overflow-y: auto;
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .card {
+    padding: 40px 25px;
   }
-  .astronaut-side {
-    flex: 0 0 400px;
-  }
-  .astronaut-wrapper {
-    width: 350px;
-    height: 300px;
-  }
-  .glowing-orb {
-    width: 50px;
-    height: 50px;
-    right: 80px;
-  }
-  .form-side {
-    padding: 20px;
+  .title {
+    font-size: 26px;
   }
 }
