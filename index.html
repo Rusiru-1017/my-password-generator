@@ -20,14 +20,56 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Neon Canvas Background */
-    #neonCanvas {
+    /* Animated Galaxy Background */
+    #galaxyCanvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
+    }
+
+    /* Nebula layers */
+    .nebula {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      z-index: 1;
+      animation: nebulaPulse 8s ease-in-out infinite;
+    }
+
+    .nebula-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(188, 19, 254, 0.5) 0%, transparent 70%);
+      top: -200px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .nebula-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
+      bottom: -150px;
+      left: -100px;
+      animation-delay: -3s;
+    }
+
+    .nebula-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 0, 85, 0.3) 0%, transparent 70%);
+      top: 40%;
+      left: 30%;
+      animation-delay: -6s;
+    }
+
+    @keyframes nebulaPulse {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 0.6; }
     }
 
     .app-container {
@@ -49,44 +91,76 @@
 
     .astronaut-wrapper {
       position: relative;
-      width: 450px;
-      height: 600px;
+      width: 400px;
+      height: 650px;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: floatAstronaut 8s ease-in-out infinite;
+      animation: floatAstronaut 10s ease-in-out infinite;
+      filter: drop-shadow(0 0 40px rgba(188, 19, 254, 0.8)) 
+              drop-shadow(0 0 80px rgba(0, 243, 255, 0.5));
     }
 
-    /* Neon glow behind astronaut to blend it */
-    .astronaut-glow {
+    /* Neon ring around astronaut */
+    .neon-ring {
       position: absolute;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(188, 19, 254, 0.4) 0%, rgba(0, 243, 255, 0.2) 40%, transparent 70%);
+      width: 350px;
+      height: 350px;
+      border: 2px solid rgba(188, 19, 254, 0.5);
       border-radius: 50%;
-      filter: blur(40px);
-      z-index: -1;
-      animation: pulseGlow 4s ease-in-out infinite alternate;
+      animation: ringPulse 3s ease-in-out infinite;
+      box-shadow: 
+        0 0 30px rgba(188, 19, 254, 0.6),
+        inset 0 0 30px rgba(0, 243, 255, 0.3);
     }
 
-    @keyframes pulseGlow {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(1.2); opacity: 1; }
+    .neon-ring:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      border-color: rgba(0, 243, 255, 0.4);
+      animation-delay: -1s;
+      box-shadow: 
+        0 0 40px rgba(0, 243, 255, 0.5),
+        inset 0 0 40px rgba(188, 19, 254, 0.2);
+    }
+
+    .neon-ring:nth-child(3) {
+      width: 450px;
+      height: 450px;
+      border-color: rgba(255, 0, 85, 0.3);
+      animation-delay: -2s;
+      box-shadow: 
+        0 0 50px rgba(255, 0, 85, 0.4),
+        inset 0 0 50px rgba(0, 243, 255, 0.1);
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.8; }
     }
 
     .astronaut-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      /* Fade bottom to blend with black background */
-      mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-      filter: drop-shadow(0 0 20px rgba(188, 19, 254, 0.6));
+      /* Remove white background and make it transparent */
+      filter: 
+        brightness(1.2) 
+        contrast(1.1) 
+        drop-shadow(0 0 30px rgba(188, 19, 254, 0.8));
+      animation: astronautGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes astronautGlow {
+      0% { filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 20px rgba(188, 19, 254, 0.6)); }
+      100% { filter: brightness(1.3) contrast(1.15) drop-shadow(0 0 50px rgba(0, 243, 255, 0.9)); }
     }
 
     @keyframes floatAstronaut {
-      0%, 100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-20px) rotate(1deg); }
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      25% { transform: translateY(-30px) rotate(0deg); }
+      50% { transform: translateY(0) rotate(2deg); }
+      75% { transform: translateY(-20px) rotate(0deg); }
     }
 
     /* Right Side - Form */
@@ -99,17 +173,46 @@
     }
 
     .content-card {
-      background: rgba(10, 10, 20, 0.6);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(188, 19, 254, 0.3);
-      border-radius: 24px;
+      background: rgba(10, 10, 20, 0.7);
+      backdrop-filter: blur(30px);
+      border: 2px solid rgba(188, 19, 254, 0.5);
+      border-radius: 30px;
       padding: 50px 40px;
       max-width: 500px;
       width: 100%;
       box-shadow: 
-        0 0 50px rgba(188, 19, 254, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 0 60px rgba(188, 19, 254, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
       animation: slideIn 1s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated border gradient */
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #bc13fe, #00f3ff, #ff0055, #bc13fe);
+      background-size: 400% 400%;
+      border-radius: 30px;
+      z-index: -1;
+      animation: gradientBorder 8s ease infinite;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .content-card:hover::before {
+      opacity: 0.5;
+    }
+
+    @keyframes gradientBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     @keyframes slideIn {
@@ -119,19 +222,26 @@
 
     .title {
       text-align: center;
-      font-size: 32px;
-      font-weight: 700;
+      font-size: 36px;
+      font-weight: 800;
       margin-bottom: 10px;
       background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #ff0055 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      animation: titleShine 3s ease-in-out infinite;
+      text-shadow: 0 0 40px rgba(188, 19, 254, 0.5);
+    }
+
+    @keyframes titleShine {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.3); }
     }
 
     .subtitle {
       text-align: center;
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 14px;
       margin-bottom: 40px;
       letter-spacing: 1px;
@@ -146,17 +256,18 @@
       color: #00f3ff;
       font-size: 12px;
       margin-bottom: 10px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
     }
 
     input {
       width: 100%;
       padding: 16px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       color: #fff;
       font-size: 15px;
       transition: all 0.3s ease;
@@ -165,8 +276,10 @@
     input:focus {
       outline: none;
       border-color: #bc13fe;
-      box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
-      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 
+        0 0 20px rgba(188, 19, 254, 0.6),
+        inset 0 0 10px rgba(0, 243, 255, 0.2);
+      background: rgba(0, 0, 0, 0.9);
     }
 
     input::placeholder {
@@ -180,27 +293,46 @@
       border: none;
       border-radius: 12px;
       color: #000;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 16px;
       cursor: pointer;
       transition: all 0.3s ease;
       margin-top: 20px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      box-shadow: 0 10px 30px rgba(188, 19, 254, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transition: left 0.5s;
+    }
+
+    .button:hover::before {
+      left: 100%;
     }
 
     .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(188, 19, 254, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(188, 19, 254, 0.8);
     }
 
     .result-section {
       margin-top: 30px;
       padding: 25px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(0, 243, 255, 0.4);
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid rgba(0, 243, 255, 0.6);
       border-radius: 16px;
       display: none;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
     }
 
     .result-label {
@@ -211,11 +343,12 @@
       margin-bottom: 15px;
       font-weight: 700;
       text-align: center;
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
     }
 
     .security-key {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(0, 243, 255, 0.5);
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid rgba(0, 243, 255, 0.7);
       padding: 18px;
       border-radius: 10px;
       color: #00f3ff;
@@ -225,28 +358,54 @@
       font-weight: bold;
       letter-spacing: 2px;
       user-select: all;
-      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+      text-shadow: 0 0 15px rgba(0, 243, 255, 1);
       word-break: break-all;
+      box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.2);
     }
 
     .copy-btn {
       width: 100%;
       margin-top: 15px;
       padding: 12px;
-      background: rgba(188, 19, 254, 0.1);
-      border: 1px solid rgba(188, 19, 254, 0.4);
+      background: rgba(188, 19, 254, 0.2);
+      border: 2px solid rgba(188, 19, 254, 0.6);
       color: #bc13fe;
       border-radius: 8px;
       cursor: pointer;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       transition: all 0.3s ease;
+      letter-spacing: 1px;
     }
 
     .copy-btn:hover {
-      background: rgba(188, 19, 254, 0.3);
-      box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
+      background: rgba(188, 19, 254, 0.4);
+      box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
+      animation: shoot 3s linear infinite;
+      opacity: 0;
+      z-index: 5;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+    }
+
+    @keyframes shoot {
+      0% {
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(500px) translateY(500px) rotate(-45deg);
+        opacity: 0;
+      }
     }
 
     /* Mobile Responsive */
@@ -256,11 +415,14 @@
         overflow-y: auto;
       }
       .astronaut-side {
-        flex: 0 0 300px;
+        flex: 0 0 350px;
       }
       .astronaut-wrapper {
         width: 250px;
-        height: 350px;
+        height: 400px;
+      }
+      .neon-ring {
+        display: none;
       }
       .form-side {
         flex: 1;
@@ -269,23 +431,38 @@
       .content-card {
         padding: 30px 20px;
       }
+      .title {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
 <body>
 
-<canvas id="neonCanvas"></canvas>
+<canvas id="galaxyCanvas"></canvas>
+
+<!-- Nebula layers -->
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div>
+
+<!-- Shooting stars -->
+<div class="shooting-star" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+<div class="shooting-star" style="top: 30%; left: 60%; animation-delay: 2s;"></div>
+<div class="shooting-star" style="top: 60%; left: 80%; animation-delay: 4s;"></div>
 
 <div class="app-container">
   <!-- Left Side: Realistic Astronaut -->
   <div class="astronaut-side">
     <div class="astronaut-wrapper">
-      <div class="astronaut-glow"></div>
-      <!-- Using a highly reliable realistic astronaut image -->
-      <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&w=600&q=80" 
+      <div class="neon-ring"></div>
+      <div class="neon-ring"></div>
+      <div class="neon-ring"></div>
+      <!-- Astronaut with transparent background -->
+      <img src="https://www.pngarts.com/files/3/Astronaut-PNG-Image-Background.png" 
            alt="Realistic Astronaut" 
            class="astronaut-img"
-           onerror="this.src='https://images.unsplash.com/photo-1541873676-a18131494184?auto=format&fit=crop&w=600&q=80'">
+           onerror="this.src='https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&w=600&q=80'">
     </div>
   </div>
 
@@ -320,64 +497,101 @@
 
 <script>
 // ============================================
-// NEON STARS ANIMATION (Blue, Purple, Pink)
+// ENHANCED NEON GALAXY ANIMATION
 // ============================================
-const canvas = document.getElementById('neonCanvas');
+const canvas = document.getElementById('galaxyCanvas');
 const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const neonColors = ['#00f3ff', '#bc13fe', '#ff0055'];
+const neonColors = [
+  { color: '#00f3ff', glow: '#00f3ff' },  // Cyan
+  { color: '#bc13fe', glow: '#bc13fe' },  // Purple
+  { color: '#ff0055', glow: '#ff0055' },  // Pink
+  { color: '#ffffff', glow: '#00f3ff' }   // White with cyan glow
+];
 
 class NeonStar {
   constructor() {
+    this.reset();
+    this.y = Math.random() * canvas.height; // Start anywhere
+  }
+
+  reset() {
     this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 2.5 + 0.5;
-    this.color = neonColors[Math.floor(Math.random() * neonColors.length)];
+    this.y = -10;
+    this.z = Math.random() * 3 + 0.5; // Depth
+    this.size = Math.random() * 3 + 0.5;
+    this.speed = Math.random() * 1 + 0.3;
     this.opacity = Math.random() * 0.8 + 0.2;
-    this.twinkleSpeed = Math.random() * 0.02 + 0.005;
-    this.driftX = (Math.random() - 0.5) * 0.2;
-    this.driftY = (Math.random() - 0.5) * 0.2;
+    this.twinkleSpeed = Math.random() * 0.03 + 0.01;
+    const colorObj = neonColors[Math.floor(Math.random() * neonColors.length)];
+    this.color = colorObj.color;
+    this.glow = colorObj.glow;
+    this.pulsePhase = Math.random() * Math.PI * 2;
   }
 
   draw() {
-    ctx.save();
-    ctx.globalAlpha = this.opacity;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = this.color;
-    ctx.fillStyle = this.color;
+    const pulseSize = this.size * (1 + Math.sin(this.pulsePhase) * 0.3);
+    
+    // Outer glow
+    const gradient = ctx.createRadialGradient(
+      this.x, this.y, 0,
+      this.x, this.y, pulseSize * 4
+    );
+    gradient.addColorStop(0, `rgba(${this.hexToRgb(this.glow)}, ${this.opacity * 0.8})`);
+    gradient.addColorStop(0.5, `rgba(${this.hexToRgb(this.glow)}, ${this.opacity * 0.3})`);
+    gradient.addColorStop(1, `rgba(${this.hexToRgb(this.glow)}, 0)`);
+    
+    ctx.fillStyle = gradient;
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, pulseSize * 4, 0, Math.PI * 2);
     ctx.fill();
-    ctx.restore();
+
+    // Core star
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = this.glow;
+    ctx.fillStyle = `rgba(${this.hexToRgb(this.color)}, ${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+
+  hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? 
+      `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+      '255, 255, 255';
   }
 
   update() {
+    this.y += this.speed * this.z;
     this.opacity += this.twinkleSpeed;
+    this.pulsePhase += 0.05;
+
     if (this.opacity > 1 || this.opacity < 0.1) {
       this.twinkleSpeed *= -1;
     }
-    this.x += this.driftX;
-    this.y += this.driftY;
 
-    // Wrap around screen
-    if (this.x < 0) this.x = canvas.width;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.y < 0) this.y = canvas.height;
-    if (this.y > canvas.height) this.y = 0;
+    if (this.y > canvas.height) {
+      this.reset();
+    }
   }
 }
 
-const stars = Array(150).fill().map(() => new NeonStar());
+// Create more stars for denser galaxy
+const stars = Array(300).fill().map(() => new NeonStar());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
   stars.forEach(star => {
     star.update();
     star.draw();
   });
+  
   requestAnimationFrame(animate);
 }
 animate();
