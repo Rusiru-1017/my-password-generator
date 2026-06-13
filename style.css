@@ -79,19 +79,25 @@ html, body {
 
 .astronaut-wrapper {
   position: relative;
-  width: 500px;
-  height: 700px;
+  width: 600px;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: floatAstronaut 10s ease-in-out infinite;
 }
 
+/* Image එකේ black background එක remove කරන්න */
 .astronaut-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 30px rgba(188, 19, 254, 0.6));
+  /* Black background එක blend කරන්න */
+  mix-blend-mode: screen;
+  filter: 
+    brightness(1.3) 
+    contrast(1.2)
+    drop-shadow(0 0 30px rgba(188, 19, 254, 0.8));
   z-index: 10;
 }
 
@@ -104,8 +110,8 @@ html, body {
   box-shadow: 0 0 40px #00f3ff, 0 0 80px #bc13fe, 0 0 120px rgba(0, 243, 255, 0.8), inset 0 0 20px #ffffff;
   animation: orbFloat 4s ease-in-out infinite, orbPulse 2s ease-in-out infinite;
   z-index: 15;
-  right: 80px;
-  top: 45%;
+  right: 150px;
+  top: 40%;
 }
 
 @keyframes orbFloat {
@@ -283,13 +289,13 @@ input:focus {
     flex: 0 0 400px;
   }
   .astronaut-wrapper {
-    width: 300px;
-    height: 450px;
+    width: 350px;
+    height: 300px;
   }
   .glowing-orb {
     width: 50px;
     height: 50px;
-    right: 50px;
+    right: 80px;
   }
   .form-side {
     padding: 20px;
