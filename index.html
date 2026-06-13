@@ -20,7 +20,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Animated Galaxy Background */
     #galaxyCanvas {
       position: fixed;
       top: 0;
@@ -30,7 +29,6 @@
       z-index: 0;
     }
 
-    /* Nebula layers */
     .nebula {
       position: fixed;
       border-radius: 50%;
@@ -46,7 +44,6 @@
       background: radial-gradient(circle, rgba(188, 19, 254, 0.5) 0%, transparent 70%);
       top: -200px;
       right: -100px;
-      animation-delay: 0s;
     }
 
     .nebula-2 {
@@ -80,7 +77,6 @@
       z-index: 10;
     }
 
-    /* Left Side - Astronaut */
     .astronaut-side {
       flex: 1;
       display: flex;
@@ -91,69 +87,72 @@
 
     .astronaut-wrapper {
       position: relative;
-      width: 400px;
-      height: 650px;
+      width: 450px;
+      height: 700px;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: floatAstronaut 10s ease-in-out infinite;
-      filter: drop-shadow(0 0 40px rgba(188, 19, 254, 0.8)) 
-              drop-shadow(0 0 80px rgba(0, 243, 255, 0.5));
     }
 
-    /* Neon ring around astronaut */
     .neon-ring {
       position: absolute;
-      width: 350px;
-      height: 350px;
-      border: 2px solid rgba(188, 19, 254, 0.5);
+      border: 3px solid rgba(188, 19, 254, 0.6);
       border-radius: 50%;
-      animation: ringPulse 3s ease-in-out infinite;
+      animation: ringRotate 10s linear infinite;
       box-shadow: 
-        0 0 30px rgba(188, 19, 254, 0.6),
-        inset 0 0 30px rgba(0, 243, 255, 0.3);
+        0 0 40px rgba(188, 19, 254, 0.8),
+        inset 0 0 40px rgba(0, 243, 255, 0.4);
+    }
+
+    .neon-ring:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      animation-delay: 0s;
     }
 
     .neon-ring:nth-child(2) {
-      width: 400px;
-      height: 400px;
-      border-color: rgba(0, 243, 255, 0.4);
-      animation-delay: -1s;
+      width: 450px;
+      height: 450px;
+      border-color: rgba(0, 243, 255, 0.5);
+      animation-delay: -3s;
+      animation-direction: reverse;
       box-shadow: 
-        0 0 40px rgba(0, 243, 255, 0.5),
-        inset 0 0 40px rgba(188, 19, 254, 0.2);
+        0 0 50px rgba(0, 243, 255, 0.7),
+        inset 0 0 50px rgba(188, 19, 254, 0.3);
     }
 
     .neon-ring:nth-child(3) {
-      width: 450px;
-      height: 450px;
-      border-color: rgba(255, 0, 85, 0.3);
-      animation-delay: -2s;
+      width: 500px;
+      height: 500px;
+      border-color: rgba(255, 0, 85, 0.4);
+      animation-delay: -6s;
       box-shadow: 
-        0 0 50px rgba(255, 0, 85, 0.4),
-        inset 0 0 50px rgba(0, 243, 255, 0.1);
+        0 0 60px rgba(255, 0, 85, 0.6),
+        inset 0 0 60px rgba(0, 243, 255, 0.2);
     }
 
-    @keyframes ringPulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 0.8; }
+    @keyframes ringRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .astronaut-img {
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      height: 90%;
       object-fit: contain;
-      /* Remove white background and make it transparent */
       filter: 
-        brightness(1.2) 
-        contrast(1.1) 
-        drop-shadow(0 0 30px rgba(188, 19, 254, 0.8));
+        brightness(1.3) 
+        contrast(1.2)
+        drop-shadow(0 0 40px rgba(188, 19, 254, 1))
+        drop-shadow(0 0 80px rgba(0, 243, 255, 0.8));
       animation: astronautGlow 4s ease-in-out infinite alternate;
+      z-index: 10;
     }
 
     @keyframes astronautGlow {
-      0% { filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 20px rgba(188, 19, 254, 0.6)); }
-      100% { filter: brightness(1.3) contrast(1.15) drop-shadow(0 0 50px rgba(0, 243, 255, 0.9)); }
+      0% { filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 30px rgba(188, 19, 254, 0.9)); }
+      100% { filter: brightness(1.4) contrast(1.25) drop-shadow(0 0 70px rgba(0, 243, 255, 1)); }
     }
 
     @keyframes floatAstronaut {
@@ -163,7 +162,6 @@
       75% { transform: translateY(-20px) rotate(0deg); }
     }
 
-    /* Right Side - Form */
     .form-side {
       flex: 1;
       display: flex;
@@ -180,39 +178,8 @@
       padding: 50px 40px;
       max-width: 500px;
       width: 100%;
-      box-shadow: 
-        0 0 60px rgba(188, 19, 254, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 60px rgba(188, 19, 254, 0.3);
       animation: slideIn 1s ease-out;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animated border gradient */
-    .content-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #bc13fe, #00f3ff, #ff0055, #bc13fe);
-      background-size: 400% 400%;
-      border-radius: 30px;
-      z-index: -1;
-      animation: gradientBorder 8s ease infinite;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .content-card:hover::before {
-      opacity: 0.5;
-    }
-
-    @keyframes gradientBorder {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     @keyframes slideIn {
@@ -228,15 +195,7 @@
       background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 50%, #ff0055 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
       letter-spacing: 2px;
-      animation: titleShine 3s ease-in-out infinite;
-      text-shadow: 0 0 40px rgba(188, 19, 254, 0.5);
-    }
-
-    @keyframes titleShine {
-      0%, 100% { filter: brightness(1); }
-      50% { filter: brightness(1.3); }
     }
 
     .subtitle {
@@ -244,7 +203,6 @@
       color: rgba(255, 255, 255, 0.6);
       font-size: 14px;
       margin-bottom: 40px;
-      letter-spacing: 1px;
     }
 
     .form-group {
@@ -259,7 +217,6 @@
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
     }
 
     input {
@@ -276,14 +233,8 @@
     input:focus {
       outline: none;
       border-color: #bc13fe;
-      box-shadow: 
-        0 0 20px rgba(188, 19, 254, 0.6),
-        inset 0 0 10px rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
       background: rgba(0, 0, 0, 0.9);
-    }
-
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.3);
     }
 
     .button {
@@ -300,24 +251,6 @@
       margin-top: 20px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      box-shadow: 0 10px 30px rgba(188, 19, 254, 0.5);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-      transition: left 0.5s;
-    }
-
-    .button:hover::before {
-      left: 100%;
     }
 
     .button:hover {
@@ -332,7 +265,6 @@
       border: 2px solid rgba(0, 243, 255, 0.6);
       border-radius: 16px;
       display: none;
-      box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
     }
 
     .result-label {
@@ -343,7 +275,6 @@
       margin-bottom: 15px;
       font-weight: 700;
       text-align: center;
-      text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
     }
 
     .security-key {
@@ -357,10 +288,7 @@
       text-align: center;
       font-weight: bold;
       letter-spacing: 2px;
-      user-select: all;
-      text-shadow: 0 0 15px rgba(0, 243, 255, 1);
       word-break: break-all;
-      box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.2);
     }
 
     .copy-btn {
@@ -376,63 +304,27 @@
       font-weight: 700;
       text-transform: uppercase;
       transition: all 0.3s ease;
-      letter-spacing: 1px;
     }
 
     .copy-btn:hover {
       background: rgba(188, 19, 254, 0.4);
       box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
-      transform: translateY(-2px);
     }
 
-    /* Shooting stars */
-    .shooting-star {
-      position: fixed;
-      width: 100px;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
-      animation: shoot 3s linear infinite;
-      opacity: 0;
-      z-index: 5;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 1);
-    }
-
-    @keyframes shoot {
-      0% {
-        transform: translateX(0) translateY(0) rotate(-45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(500px) translateY(500px) rotate(-45deg);
-        opacity: 0;
-      }
-    }
-
-    /* Mobile Responsive */
     @media (max-width: 900px) {
       .app-container {
         flex-direction: column;
         overflow-y: auto;
       }
       .astronaut-side {
-        flex: 0 0 350px;
+        flex: 0 0 400px;
       }
       .astronaut-wrapper {
-        width: 250px;
-        height: 400px;
-      }
-      .neon-ring {
-        display: none;
+        width: 300px;
+        height: 450px;
       }
       .form-side {
-        flex: 1;
         padding: 20px;
-      }
-      .content-card {
-        padding: 30px 20px;
-      }
-      .title {
-        font-size: 28px;
       }
     }
   </style>
@@ -441,32 +333,24 @@
 
 <canvas id="galaxyCanvas"></canvas>
 
-<!-- Nebula layers -->
 <div class="nebula nebula-1"></div>
 <div class="nebula nebula-2"></div>
 <div class="nebula nebula-3"></div>
 
-<!-- Shooting stars -->
-<div class="shooting-star" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
-<div class="shooting-star" style="top: 30%; left: 60%; animation-delay: 2s;"></div>
-<div class="shooting-star" style="top: 60%; left: 80%; animation-delay: 4s;"></div>
-
 <div class="app-container">
-  <!-- Left Side: Realistic Astronaut -->
   <div class="astronaut-side">
     <div class="astronaut-wrapper">
       <div class="neon-ring"></div>
       <div class="neon-ring"></div>
       <div class="neon-ring"></div>
-      <!-- Astronaut with transparent background -->
-      <img src="https://www.pngarts.com/files/3/Astronaut-PNG-Image-Background.png" 
-           alt="Realistic Astronaut" 
+      <!-- BETTER ASTRONAUT IMAGE - Transparent PNG -->
+      <img src="https://purepng.com/public/uploads/large/purepng.com-astronautastronautspace-suitnaspacewalk-901524653835r6dqm.png" 
+           alt="Astronaut" 
            class="astronaut-img"
-           onerror="this.src='https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&w=600&q=80'">
+           onerror="this.src='https://www.pngarts.com/files/3/Astronaut-Space-Suit-PNG-Image.png'">
     </div>
   </div>
 
-  <!-- Right Side: Form -->
   <div class="form-side">
     <div class="content-card">
       <h1 class="title">Galactic Security Key</h1>
@@ -496,62 +380,50 @@
 </div>
 
 <script>
-// ============================================
-// ENHANCED NEON GALAXY ANIMATION
-// ============================================
 const canvas = document.getElementById('galaxyCanvas');
 const ctx = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const neonColors = [
-  { color: '#00f3ff', glow: '#00f3ff' },  // Cyan
-  { color: '#bc13fe', glow: '#bc13fe' },  // Purple
-  { color: '#ff0055', glow: '#ff0055' },  // Pink
-  { color: '#ffffff', glow: '#00f3ff' }   // White with cyan glow
-];
+const neonColors = ['#00f3ff', '#bc13fe', '#ff0055', '#ffffff'];
 
 class NeonStar {
   constructor() {
     this.reset();
-    this.y = Math.random() * canvas.height; // Start anywhere
+    this.y = Math.random() * canvas.height;
   }
 
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = -10;
-    this.z = Math.random() * 3 + 0.5; // Depth
+    this.z = Math.random() * 3 + 0.5;
     this.size = Math.random() * 3 + 0.5;
     this.speed = Math.random() * 1 + 0.3;
     this.opacity = Math.random() * 0.8 + 0.2;
     this.twinkleSpeed = Math.random() * 0.03 + 0.01;
-    const colorObj = neonColors[Math.floor(Math.random() * neonColors.length)];
-    this.color = colorObj.color;
-    this.glow = colorObj.glow;
+    this.color = neonColors[Math.floor(Math.random() * neonColors.length)];
     this.pulsePhase = Math.random() * Math.PI * 2;
   }
 
   draw() {
     const pulseSize = this.size * (1 + Math.sin(this.pulsePhase) * 0.3);
     
-    // Outer glow
     const gradient = ctx.createRadialGradient(
       this.x, this.y, 0,
       this.x, this.y, pulseSize * 4
     );
-    gradient.addColorStop(0, `rgba(${this.hexToRgb(this.glow)}, ${this.opacity * 0.8})`);
-    gradient.addColorStop(0.5, `rgba(${this.hexToRgb(this.glow)}, ${this.opacity * 0.3})`);
-    gradient.addColorStop(1, `rgba(${this.hexToRgb(this.glow)}, 0)`);
+    gradient.addColorStop(0, `rgba(${this.hexToRgb(this.color)}, ${this.opacity * 0.8})`);
+    gradient.addColorStop(0.5, `rgba(${this.hexToRgb(this.color)}, ${this.opacity * 0.3})`);
+    gradient.addColorStop(1, `rgba(${this.hexToRgb(this.color)}, 0)`);
     
     ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.arc(this.x, this.y, pulseSize * 4, 0, Math.PI * 2);
     ctx.fill();
 
-    // Core star
     ctx.shadowBlur = 20;
-    ctx.shadowColor = this.glow;
+    ctx.shadowColor = this.color;
     ctx.fillStyle = `rgba(${this.hexToRgb(this.color)}, ${this.opacity})`;
     ctx.beginPath();
     ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
@@ -581,17 +453,14 @@ class NeonStar {
   }
 }
 
-// Create more stars for denser galaxy
 const stars = Array(300).fill().map(() => new NeonStar());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
   stars.forEach(star => {
     star.update();
     star.draw();
   });
-  
   requestAnimationFrame(animate);
 }
 animate();
@@ -601,9 +470,6 @@ window.addEventListener('resize', () => {
   canvas.height = window.innerHeight;
 });
 
-// ============================================
-// PASSWORD GENERATOR LOGIC (UNCHANGED)
-// ============================================
 function generateSecurityKey(name, birthYear) {
   let hash = 0;
   const str = name + birthYear;
